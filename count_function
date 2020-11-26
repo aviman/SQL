@@ -1,0 +1,32 @@
+Difference between COUNT(*), COUNT(1) & COUNT(field_name)
+
+-- COUNT(*) gives the total number of records in the table including null Values.
+-- COUNT(1) give the total number of records in the table including null Values.
+-- COUNT(field_name) only considers rows where the field name contains a non NULL value.
+
+The output of COUNT(*) and COUNT(1) is same but the difference is in the time taken to execute the query.
+
+COUNT(1) is fater/optimized than COUNT(*) : COUNT(*) has to iterate through all the columns, but COUNT(1) iterated through only one column.
+
+COUNT(1) : 1 do not indicates the firest column of the table. 1 is just a value, we can use any other number.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<<>> Counting null and non-null values
+ 
+ SELECT
+  (SELECT count(1)
+   FROM table1
+   WHERE field1 IS NULL) count_of_null,
+ 
+  (SELECT count(1)
+   FROM table1
+   WHERE filed1 IS NOT NULL)count_of_non_null
+FROM dual;
+
+
+SELECT sum(CASE
+               WHEN field1 IS NULL THEN 1
+               ELSE 0
+           END) count_of_null,
+       count(field) count_of_non_null
+FROM test1;
