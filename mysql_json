@@ -1,0 +1,12 @@
+--> mysql version 5.7 and above
+--> store and fetch json data from the table
+
+CREATE TABLE table_name (id INT, data JSON);
+
+INSERT INTO table_name VALUES (1, JSON_OBJECT('username', 'kevin', 'age', 25, 'company', 'google'));
+
+# Output: kevin
+SELECT JSON_EXTRACT(data, '$.username') from table_name;
+
+# Output: google
+SELECT data->>'$.company' from table_name;
